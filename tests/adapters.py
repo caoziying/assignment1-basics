@@ -525,25 +525,6 @@ def run_train_bpe(
     # 可合并次数
     sz = vocab_size - len(special_tokens) - 256
     
-    # # 1. 切分规则
-    # base_pat = r"""'(?i:[sdmt]|ll|ve|re)| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+"""
-    
-    # # 2. 动态拼接特殊 Token
-    # if special_tokens:
-    #     # 使用 re.escape 转义每个 token，例如把 "[PAD]" 变成 "\[PAD\]"
-    #     escaped_tokens = [re.escape(tok) for tok in special_tokens]
-    #     # 用 '|' 连接起来，外面包上 (?:...) 表示这是一个非捕获组
-    #     special_pat = "(?:" + "|".join(escaped_tokens) + ")"
-        
-    #     # 把特殊规则放在最前面，加上 '|' 和基础规则拼接
-    #     PAT = special_pat + "|" + base_pat
-    # else:
-    #     PAT = base_pat
-    
-    # # 3. 强烈建议：在文件循环外预先编译正则，能大幅提升读取大文件时的速度！
-    # compiled_pat = re.compile(PAT)
-    # cnt = Counter()
-    
     base_pat = r"""'(?i:[sdmt]|ll|ve|re)| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+"""
     base_re = re.compile(base_pat)
 
